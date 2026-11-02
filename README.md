@@ -1,5 +1,8 @@
 # Block Puzzle
 
+[![CI](https://github.com/helenyildirim/block-puzzle/actions/workflows/ci.yml/badge.svg)](https://github.com/helenyildirim/block-puzzle/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 A block puzzle game built with Expo, React Native and TypeScript. Drag three pieces at a time onto an 8x8 board and clear full rows and columns. It has no ads and no purchases.
 
 <p>
@@ -54,3 +57,7 @@ npx eas-cli@latest build --platform android --profile preview
 ## Stack
 
 Expo SDK 57, Expo Router, React Native, TypeScript, expo-audio, AsyncStorage
+
+## License
+
+MIT
