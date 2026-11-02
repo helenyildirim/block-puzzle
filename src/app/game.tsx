@@ -74,6 +74,9 @@ export default function GameScreen() {
   }, [mode]);
 
   const startNew = useCallback(() => {
+    // Yarıda bırakılan oyunun skoru da rekor sayılır
+    const previous = stateRef.current;
+    if (previous && !previous.over) submitScore(mode, previous.score);
     const g = freshGame(mode);
     stateRef.current = g;
     setState(g);
@@ -83,7 +86,7 @@ export default function GameScreen() {
     setEffects([]);
     setFlashes([]);
     setPopup(null);
-  }, [mode]);
+  }, [mode, submitScore]);
 
   const goHome = useCallback(() => {
     if (router.canGoBack()) router.back();
@@ -200,7 +203,7 @@ export default function GameScreen() {
             <Crown size={20} />
             <Text style={styles.bestText}>{formatScore(shownBest)}</Text>
           </View>
-          <IconButton icon="cog-outline" onPress={() => setPaused(true)} />
+          <IconButton icon="cog-outline" label="Pause" onPress={() => setPaused(true)} />
         </View>
 
         <View style={styles.scoreBlock}>

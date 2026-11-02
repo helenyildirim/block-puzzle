@@ -11,6 +11,7 @@ import {
   useFonts,
 } from '@expo-google-fonts/nunito';
 import { AppProvider } from '../state/AppContext';
+import { ErrorBoundary } from '../components/ErrorBoundary';
 import { colors } from '../theme';
 
 // Yazı tipleri yüklenene kadar sistemin açılış ekranı görünsün
@@ -33,17 +34,19 @@ export default function RootLayout() {
   if (!fontsDone) return null;
 
   return (
-    <AppProvider>
-      <StatusBar style="light" />
-      <Stack
-        screenOptions={{
-          headerShown: false,
-          animation: 'fade',
-          contentStyle: { backgroundColor: colors.bgBottom },
-        }}
-      >
-        <Stack.Screen name="game" options={{ gestureEnabled: false }} />
-      </Stack>
-    </AppProvider>
+    <ErrorBoundary>
+      <AppProvider>
+        <StatusBar style="light" />
+        <Stack
+          screenOptions={{
+            headerShown: false,
+            animation: 'fade',
+            contentStyle: { backgroundColor: colors.bgBottom },
+          }}
+        >
+          <Stack.Screen name="game" options={{ gestureEnabled: false }} />
+        </Stack>
+      </AppProvider>
+    </ErrorBoundary>
   );
 }

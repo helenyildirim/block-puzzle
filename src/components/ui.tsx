@@ -81,6 +81,8 @@ export function GlossyButton({ label, onPress, icon, variant = 'primary', height
   return (
     <Animated.View style={[{ transform: [{ scale }], width: '100%' }, style]}>
       <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={label}
         onPress={() => {
           sfx('tap');
           haptic('light');
@@ -107,9 +109,21 @@ export function GlossyButton({ label, onPress, icon, variant = 'primary', height
 }
 
 /** Tasarımdaki yuvarlak köşeli kare ikon butonu (ayarlar, ses). */
-export function IconButton({ icon, onPress, size = 44 }: { icon: IconName; onPress: () => void; size?: number }) {
+export function IconButton({
+  icon,
+  label,
+  onPress,
+  size = 44,
+}: {
+  icon: IconName;
+  label: string;
+  onPress: () => void;
+  size?: number;
+}) {
   return (
     <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={label}
       onPress={() => {
         sfx('tap');
         haptic('light');
@@ -126,13 +140,16 @@ export function IconButton({ icon, onPress, size = 44 }: { icon: IconName; onPre
   );
 }
 
-export function Toggle({ value, onChange }: { value: boolean; onChange: (v: boolean) => void }) {
+export function Toggle({ value, label, onChange }: { value: boolean; label?: string; onChange: (v: boolean) => void }) {
   const x = useAnimatedValue(value ? 1 : 0);
   useEffect(() => {
     Animated.timing(x, { toValue: value ? 1 : 0, duration: 150, easing: Easing.out(Easing.quad), useNativeDriver: true }).start();
   }, [value, x]);
   return (
     <Pressable
+      accessibilityRole="switch"
+      accessibilityLabel={label}
+      accessibilityState={{ checked: value }}
       onPress={() => {
         haptic('select');
         onChange(!value);
@@ -194,7 +211,7 @@ function SettingRow({ icon, label, value, onChange }: { icon: IconName; label: s
     <View style={styles.row}>
       <MaterialCommunityIcons name={icon} size={22} color="#9DB6E6" style={{ width: 34 }} />
       <Text style={styles.rowLabel}>{label}</Text>
-      <Toggle value={value} onChange={onChange} />
+      <Toggle value={value} label={label} onChange={onChange} />
     </View>
   );
 }

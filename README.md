@@ -16,6 +16,7 @@ A block puzzle game built with Expo, React Native and TypeScript. Drag three pie
 - Combo scoring with streak multipliers up to x4 and a +300 bonus for emptying the board
 - Sound effects, music and haptic feedback
 - Saved progress and personal best
+- Screen reader labels for buttons and switches
 
 ## Scoring
 

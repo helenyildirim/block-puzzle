@@ -49,9 +49,10 @@ export default function HomeScreen() {
       </View>
 
       <View style={[styles.bottom, { paddingBottom: insets.bottom + 34 }]}>
-        <IconButton icon="cog-outline" onPress={() => setShowSettings(true)} />
+        <IconButton icon="cog-outline" label="Settings" onPress={() => setShowSettings(true)} />
         <View style={{ width: 14 }} />
         <IconButton
+          label={soundOn ? 'Turn sound off' : 'Turn sound on'}
           icon={soundOn ? 'volume-high' : 'volume-off'}
           onPress={() => {
             // Sesi tek dokunuşla aç/kapat: ses efektleri ve müzik birlikte
@@ -67,6 +68,10 @@ export default function HomeScreen() {
             <Text style={styles.panelTitle}>SETTINGS</Text>
             <View style={{ height: 10 }} />
             <SettingsList />
+            <Text style={styles.privacy}>
+              Privacy: your scores and settings stay on this device. The game collects no personal data and has no ads
+              or trackers.
+            </Text>
             <View style={styles.divider} />
             <GlossyButton label="CLOSE" variant="secondary" height={52} onPress={() => setShowSettings(false)} />
           </Panel>
@@ -102,5 +107,6 @@ const styles = StyleSheet.create({
   sub: { marginTop: 18, color: colors.textDim, fontFamily: fonts.semi, fontSize: 13 },
   bottom: { position: 'absolute', left: 0, right: 0, bottom: 0, flexDirection: 'row', justifyContent: 'center' },
   panelTitle: { color: '#fff', fontFamily: fonts.black, fontSize: 30, letterSpacing: 0.6 },
+  privacy: { marginTop: 8, color: colors.textDim, fontFamily: fonts.semi, fontSize: 12, lineHeight: 17, textAlign: 'center' },
   divider: { width: '100%', height: 1, backgroundColor: 'rgba(150,195,255,0.18)', marginVertical: 14 },
 });
