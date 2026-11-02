@@ -1,0 +1,44 @@
+{
+  "expo": {
+    "name": "Block Puzzle",
+    "slug": "block-puzzle",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.helen.blockpuzzle"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#12306B",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "package": "com.helen.blockpuzzle"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single",
+      "favicon": "./assets/favicon.png"
+    },
+    "backgroundColor": "#0A1A3C",
+    "plugins": [
+      "expo-router",
+      "expo-audio",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "backgroundColor": "#0A1A3C",
+          "imageWidth": 200,
+          "resizeMode": "contain"
+        }
+      ]
+    ],
+    "scheme": "blockpuzzle"
+  }
+}
