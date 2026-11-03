@@ -168,7 +168,7 @@ test('aynı tohum aynı tahta ve set; temiz başlangıç', () => {
 test('bilinen bir günün başlangıcı değişmez', () => {
   const game = createGame('daily', 20261103);
   assert.equal(game.board.flat().join(''), '0000000000000000000554440000504000005000000000400000004400000040');
-  assert.equal(game.tray.map((piece) => piece.shapeId).join(','), 'h5,h3,l2c');
+  assert.equal(game.tray.map((piece) => piece?.shapeId).join(','), 'h5,h3,l2c');
 });
 
 console.log('Parça üretimi simülasyonu');
