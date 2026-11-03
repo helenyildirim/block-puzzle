@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Added a test that pins a known Daily Challenge
+
 ## 1.1.0
 
 - Fixed the best score being lost when restarting during a game

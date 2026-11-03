@@ -164,6 +164,13 @@ test('aynı tohum aynı tahta ve set; temiz başlangıç', () => {
   assert.notDeepEqual(a.board, other.board);
 });
 
+// Herkes aynı gün aynı başlangıcı görmeli: üretici değişirse bu test uyarır
+test('bilinen bir günün başlangıcı değişmez', () => {
+  const game = createGame('daily', 20261103);
+  assert.equal(game.board.flat().join(''), '0000000000000000000554440000504000005000000000400000004400000040');
+  assert.equal(game.tray.map((piece) => piece.shapeId).join(','), 'h5,h3,l2c');
+});
+
 console.log('Parça üretimi simülasyonu');
 test('rastgele oyuncu botuyla 300 oyun: çökme yok, set kalitesi ölçümü', () => {
   let games = 0;
