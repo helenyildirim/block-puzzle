@@ -5,6 +5,8 @@
 
 A block puzzle game built with Expo, React Native and TypeScript. Drag three pieces at a time onto an 8x8 board and clear full rows and columns. It has no ads and no purchases.
 
+**[Download the Android APK](https://github.com/helenyildirim/block-puzzle/releases/latest)**
+
 <p>
   <img src="docs/home.png" width="260" alt="Home screen" />
   <img src="docs/game.png" width="260" alt="Game screen" />

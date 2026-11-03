@@ -1,0 +1,70 @@
+name: Android APK
+
+# Builds an installable APK on GitHub and attaches it to a release, so the game
+# can be put on a phone without Android Studio or an Expo account.
+# Run it by hand from the Actions tab. It also runs when this file changes.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/android-apk.yml']
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 17
+
+      # The runner image already ships the Android SDK, so there is nothing to install;
+      # just make sure the licences are accepted before Gradle fetches anything.
+      - name: Accept Android SDK licences
+        run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null 2>&1 || true
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps || npm install --legacy-peer-deps
+
+      - name: Check types
+        run: npx tsc --noEmit
+
+      - name: Generate the native Android project
+        run: npx expo prebuild --platform android --clean --no-install
+
+      - name: Build the APK
+        working-directory: android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleRelease --no-daemon -PreactNativeArchitectures=arm64-v8a
+
+      - name: Name the APK after the run
+        run: |
+          mkdir -p out
+          cp android/app/build/outputs/apk/release/app-release.apk \
+             "out/block-puzzle-${{ github.run_number }}.apk"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: block-puzzle-apk
+          path: out/*.apk
+
+      - name: Publish it as a release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: apk-${{ github.run_number }}
+          name: Block Puzzle APK ${{ github.run_number }}
+          body: |
+            Installable test build for 64-bit Android phones.
+          files: out/*.apk
